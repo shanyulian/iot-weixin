@@ -1786,4 +1786,5 @@ public class StringUtil {
 		}
 		return isBaseClass;
 	}
+
 }

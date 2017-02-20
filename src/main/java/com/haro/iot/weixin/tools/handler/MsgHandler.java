@@ -146,7 +146,9 @@ public class MsgHandler extends AbstractHandler {
                 }
             }
         }else if(wxMessage.getContent().length() ==10){
-
+                if("A".equals(StringUtil.subStrNotEncode(wxMessage.getContent(),1))){
+                    ;
+                }
 
         }else{
             String content = "没有解析到相应命令。直接输入机器SN编号查询对应机器信息！";

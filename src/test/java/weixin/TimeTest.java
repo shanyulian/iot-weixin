@@ -10,7 +10,10 @@ public class TimeTest {
 
     @Test
     public void timeTest(){
-        System.out.print(StringUtil.subStrNotEncode("AYSH10200A",1));
+        System.out.println(StringUtil.subStrNotEncode("AYSH10200A",1));
+        String s = "AYSH10200D";
+        String e = s.substring(9,10);
+        System.out.println("e:"+e+"+leng = "+e.length());
 
     }
 }

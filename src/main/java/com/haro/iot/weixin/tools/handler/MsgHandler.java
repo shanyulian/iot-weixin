@@ -3,9 +3,11 @@ package com.haro.iot.weixin.tools.handler;
 
 import com.haro.iot.weixin.core.pojo.CustomerInfo;
 import com.haro.iot.weixin.core.pojo.DeviceInfo;
+import com.haro.iot.weixin.core.pojo.TWeixinRegister;
 import com.haro.iot.weixin.core.pojo.VEInfo;
 import com.haro.iot.weixin.core.service.DeviceInfoService;
 import com.haro.iot.weixin.core.service.SendWeiXinService;
+import com.haro.iot.weixin.core.service.WeiXinRegisterService;
 import com.haro.iot.weixin.tools.builder.TextBuilder;
 import com.haro.iot.weixin.tools.service.WeixinService;
 import com.haro.iot.weixin.util.SpringUtil;
@@ -35,6 +37,8 @@ public class MsgHandler extends AbstractHandler {
     private DeviceInfoService deviceInfoService;//机器信息
     @Autowired
     private SendWeiXinService sendWeiXinService;//获取代理商等信息
+    @Autowired
+    private WeiXinRegisterService weiXinRegisterService;//注册信息
     @Override
     public WxMpXmlOutMessage handle(WxMpXmlMessage wxMessage,
       Map<String, Object> context, WxMpService wxMpService,
@@ -147,7 +151,33 @@ public class MsgHandler extends AbstractHandler {
             }
         }else if(wxMessage.getContent().length() ==10){
                 if("A".equals(StringUtil.subStrNotEncode(wxMessage.getContent(),1))){
-                    ;
+                    //AYSH10200A 字符格式
+                    //截取4~9的字符串 为代理商的ID号
+                    String agentid = wxMessage.getContent().substring(4,9);
+                    if(StringUtil.isNumericString(agentid)){
+                        TWeixinRegister tWeixinRegister = weiXinRegisterService.selectByAgent(agentid);
+                        if(tWeixinRegister!=null){
+                            String number = wxMessage.getContent().substring(1,2);//标记 A B C 公司 Y ，看数据库
+                            String mark = wxMessage.getContent().substring(2,4);//标记 SH 上海
+                            String anthority = wxMessage.getContent().substring(9,10);//权限
+                            if( number.equals(tWeixinRegister.getNumber()) && mark.equals(tWeixinRegister.getMark())){
+                                if("A".equals(anthority)){
+
+                                }else if("B".equals(anthority)){
+
+                                }else  if("C".equals(anthority)){
+
+                                }else  if("D".equals(anthority)){
+
+                                }
+                            }
+
+                            //if(tWeixinRegister.getNumber())
+                        }
+
+                    }
+                    String content = "没有解析到相应命令。请您重新输入，如有疑问，联系上海克拉方今！";
+                    return new TextBuilder().build(content, wxMessage, weixinService);
                 }
 
         }else{

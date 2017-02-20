@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org/DTD Mapper 3.0" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.haro.iot.weixin.core.mapper.SendTimeMapper">
+
+    <resultMap id="sendTimeMap" type="com.haro.iot.weixin.core.pojo.SendTime">
+        <id property="id" column="id" jdbcType="INTEGER"/>
+        <result property="cpsn" column="cpsn" jdbcType="VARCHAR"/>
+        <result property="timestamp" column="send_time" jdbcType="TIMESTAMP"/>
+        <result property="intervalTime" column="interval_time" jdbcType="INTEGER"/>
+
+    </resultMap>
+
+
+    <select id="selectTimeByCpsn" parameterType="java.lang.String" resultMap="sendTimeMap">
+        SELECT * FROM t_notice WHERE cpsn =#{cpsn,jdbcType=VARCHAR};
+    </select>
+    <insert id="insert" parameterType="com.haro.iot.weixin.core.pojo.SendTime" >
+        insert into t_notice (cpsn,send_time,interval_time)
+        values (#{cpsn,jdbcType=VARCHAR}, #{timestamp,jdbcType=TIMESTAMP},#{intervalTime,jdbcType=INTEGER})
+    </insert>
+
+    <!--<update id="updateSendTime" parameterType="com.haro.iot.weixin.core.pojo.SendTime" >-->
+        <!--update t_user-->
+        <!--<set >-->
+            <!--<if test="timestamp != null" >-->
+                <!--send_time = #{timestamp,jdbcType=VARCHAR},-->
+            <!--</if>-->
+            <!--<if test="userAge != null" >-->
+                <!--user_age = #{userAge,jdbcType=VARCHAR},-->
+            <!--</if>-->
+        <!--</set>-->
+        <!--where cpsn = #{cpsn,jdbcType=VARCHAR}-->
+    <!--</update>-->
+    <update id="updateSendTime" parameterType="com.haro.iot.weixin.core.pojo.SendTime">
+          update t_notice set send_time=#{timestamp,jdbcType=TIMESTAMP} WHERE cpsn=#{cpsn,jdbcType=VARCHAR};
+     </update>
+
+</mapper>

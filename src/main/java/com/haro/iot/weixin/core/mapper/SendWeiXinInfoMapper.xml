@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org/DTD Mapper 3.0" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.haro.iot.weixin.core.mapper.SendWeiXinInfoMapper">
+
+    <resultMap id="deviceMap" type="com.haro.iot.weixin.core.pojo.DeviceInfo">
+                <result property="cID" column="C_Id" javaType="java.lang.Integer"></result>
+                <result property="spec" column="Spec" javaType="java.lang.String"></result>
+    </resultMap>
+    <resultMap id="CustomerMap" type="com.haro.iot.weixin.core.pojo.CustomerInfo">
+        <result property="code" column="Code" javaType="java.lang.String"></result>
+        <result property="name" column="Name" javaType="java.lang.String"></result>
+    </resultMap>
+    <resultMap id="weiXinMap" type="com.haro.iot.weixin.core.pojo.WeiXinInfo">
+        <result property="agentName" column="agent_name" javaType="java.lang.String"></result>
+        <result property="openid" column="openid" javaType="java.lang.String"></result>
+    </resultMap>
+
+    <select id="selectAgentIDByCpsn" parameterType="java.lang.String" resultMap="deviceMap">
+        SELECT C_Id,Spec FROM E_EquipmentFiles WHERE P_SN =#{cpsn,jdbcType=VARCHAR};
+    </select>
+
+    <select id="selectCustomerByID" parameterType="java.lang.Integer" resultMap="CustomerMap">
+        SELECT Code,Name FROM E_CustomerInfo WHERE id =#{id,jdbcType=INTEGER};
+    </select>
+
+    <select id="selectWeiXinByID" parameterType="java.lang.String" resultMap="weiXinMap">
+        SELECT agent_name,openid FROM t_weixin_send WHERE agent_id =#{id,jdbcType=VARCHAR};
+    </select>
+</mapper>

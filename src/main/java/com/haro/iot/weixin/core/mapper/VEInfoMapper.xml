@@ -1,0 +1,449 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.haro.iot.weixin.core.mapper.VEInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.haro.iot.weixin.core.pojo.VEInfo" >
+    <id column="Id" property="id" jdbcType="INTEGER" />
+    <result column="txsn" property="txsn" jdbcType="VARCHAR" />
+    <result column="zjcd" property="zjcd" jdbcType="VARCHAR" />
+    <result column="bjzt" property="bjzt" jdbcType="VARCHAR" />
+    <result column="wdzt" property="wdzt" jdbcType="VARCHAR" />
+    <result column="zcjl" property="zcjl" jdbcType="VARCHAR" />
+    <result column="jqwd" property="jqwd" jdbcType="VARCHAR" />
+    <result column="sl" property="sl" jdbcType="VARCHAR" />
+    <result column="syl" property="syl" jdbcType="VARCHAR" />
+    <result column="xjcjl" property="xjcjl" jdbcType="VARCHAR" />
+    <result column="ph" property="ph" jdbcType="VARCHAR" />
+    <result column="tbs" property="tbs" jdbcType="VARCHAR" />
+    <result column="ydzfs" property="ydzfs" jdbcType="VARCHAR" />
+    <result column="sks" property="sks" jdbcType="VARCHAR" />
+    <result column="sylx" property="sylx" jdbcType="VARCHAR" />
+    <result column="cpsn" property="cpsn" jdbcType="VARCHAR" />
+    <result column="jd" property="jd" jdbcType="VARCHAR" />
+    <result column="wd" property="wd" jdbcType="VARCHAR" />
+    <result column="zt" property="zt" jdbcType="VARCHAR" />
+    <result column="xh" property="xh" jdbcType="VARCHAR" />
+    <result column="ent_time" property="date" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    Id, txsn, zjcd, bjzt, wdzt, zcjl, jqwd, sl, syl, xjcjl, ph, tbs, ydzfs, sks, sylx,
+    cpsn, jd, wd, zt, xh
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.haro.iot.weixin.core.pojo.VEInfoExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from V_E_Info
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select
+    <include refid="Base_Column_List" />
+    from V_E_Info
+    where Id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from V_E_Info
+    where Id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.haro.iot.weixin.core.pojo.VEInfoExample" >
+    delete from V_E_Info
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.haro.iot.weixin.core.pojo.VEInfo" >
+    insert into V_E_Info (Id, txsn, zjcd,
+    bjzt, wdzt, zcjl, jqwd,
+    sl, syl, xjcjl, ph,
+    tbs, ydzfs, sks, sylx,
+    cpsn, jd, wd, zt,
+    xh)
+    values (#{id,jdbcType=INTEGER}, #{txsn,jdbcType=VARCHAR}, #{zjcd,jdbcType=VARCHAR},
+    #{bjzt,jdbcType=VARCHAR}, #{wdzt,jdbcType=VARCHAR}, #{zcjl,jdbcType=VARCHAR}, #{jqwd,jdbcType=VARCHAR},
+    #{sl,jdbcType=VARCHAR}, #{syl,jdbcType=VARCHAR}, #{xjcjl,jdbcType=VARCHAR}, #{ph,jdbcType=VARCHAR},
+    #{tbs,jdbcType=VARCHAR}, #{ydzfs,jdbcType=VARCHAR}, #{sks,jdbcType=VARCHAR}, #{sylx,jdbcType=VARCHAR},
+    #{cpsn,jdbcType=VARCHAR}, #{jd,jdbcType=VARCHAR}, #{wd,jdbcType=VARCHAR}, #{zt,jdbcType=VARCHAR},
+    #{xh,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.haro.iot.weixin.core.pojo.VEInfo" >
+    insert into V_E_Info
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        Id,
+      </if>
+      <if test="txsn != null" >
+        txsn,
+      </if>
+      <if test="zjcd != null" >
+        zjcd,
+      </if>
+      <if test="bjzt != null" >
+        bjzt,
+      </if>
+      <if test="wdzt != null" >
+        wdzt,
+      </if>
+      <if test="zcjl != null" >
+        zcjl,
+      </if>
+      <if test="jqwd != null" >
+        jqwd,
+      </if>
+      <if test="sl != null" >
+        sl,
+      </if>
+      <if test="syl != null" >
+        syl,
+      </if>
+      <if test="xjcjl != null" >
+        xjcjl,
+      </if>
+      <if test="ph != null" >
+        ph,
+      </if>
+      <if test="tbs != null" >
+        tbs,
+      </if>
+      <if test="ydzfs != null" >
+        ydzfs,
+      </if>
+      <if test="sks != null" >
+        sks,
+      </if>
+      <if test="sylx != null" >
+        sylx,
+      </if>
+      <if test="cpsn != null" >
+        cpsn,
+      </if>
+      <if test="jd != null" >
+        jd,
+      </if>
+      <if test="wd != null" >
+        wd,
+      </if>
+      <if test="zt != null" >
+        zt,
+      </if>
+      <if test="xh != null" >
+        xh,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="txsn != null" >
+        #{txsn,jdbcType=VARCHAR},
+      </if>
+      <if test="zjcd != null" >
+        #{zjcd,jdbcType=VARCHAR},
+      </if>
+      <if test="bjzt != null" >
+        #{bjzt,jdbcType=VARCHAR},
+      </if>
+      <if test="wdzt != null" >
+        #{wdzt,jdbcType=VARCHAR},
+      </if>
+      <if test="zcjl != null" >
+        #{zcjl,jdbcType=VARCHAR},
+      </if>
+      <if test="jqwd != null" >
+        #{jqwd,jdbcType=VARCHAR},
+      </if>
+      <if test="sl != null" >
+        #{sl,jdbcType=VARCHAR},
+      </if>
+      <if test="syl != null" >
+        #{syl,jdbcType=VARCHAR},
+      </if>
+      <if test="xjcjl != null" >
+        #{xjcjl,jdbcType=VARCHAR},
+      </if>
+      <if test="ph != null" >
+        #{ph,jdbcType=VARCHAR},
+      </if>
+      <if test="tbs != null" >
+        #{tbs,jdbcType=VARCHAR},
+      </if>
+      <if test="ydzfs != null" >
+        #{ydzfs,jdbcType=VARCHAR},
+      </if>
+      <if test="sks != null" >
+        #{sks,jdbcType=VARCHAR},
+      </if>
+      <if test="sylx != null" >
+        #{sylx,jdbcType=VARCHAR},
+      </if>
+      <if test="cpsn != null" >
+        #{cpsn,jdbcType=VARCHAR},
+      </if>
+      <if test="jd != null" >
+        #{jd,jdbcType=VARCHAR},
+      </if>
+      <if test="wd != null" >
+        #{wd,jdbcType=VARCHAR},
+      </if>
+      <if test="zt != null" >
+        #{zt,jdbcType=VARCHAR},
+      </if>
+      <if test="xh != null" >
+        #{xh,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.haro.iot.weixin.core.pojo.VEInfoExample" resultType="java.lang.Integer" >
+    select count(*) from V_E_Info
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update V_E_Info
+    <set >
+      <if test="record.id != null" >
+        Id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.txsn != null" >
+        txsn = #{record.txsn,jdbcType=VARCHAR},
+      </if>
+      <if test="record.zjcd != null" >
+        zjcd = #{record.zjcd,jdbcType=VARCHAR},
+      </if>
+      <if test="record.bjzt != null" >
+        bjzt = #{record.bjzt,jdbcType=VARCHAR},
+      </if>
+      <if test="record.wdzt != null" >
+        wdzt = #{record.wdzt,jdbcType=VARCHAR},
+      </if>
+      <if test="record.zcjl != null" >
+        zcjl = #{record.zcjl,jdbcType=VARCHAR},
+      </if>
+      <if test="record.jqwd != null" >
+        jqwd = #{record.jqwd,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sl != null" >
+        sl = #{record.sl,jdbcType=VARCHAR},
+      </if>
+      <if test="record.syl != null" >
+        syl = #{record.syl,jdbcType=VARCHAR},
+      </if>
+      <if test="record.xjcjl != null" >
+        xjcjl = #{record.xjcjl,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ph != null" >
+        ph = #{record.ph,jdbcType=VARCHAR},
+      </if>
+      <if test="record.tbs != null" >
+        tbs = #{record.tbs,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ydzfs != null" >
+        ydzfs = #{record.ydzfs,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sks != null" >
+        sks = #{record.sks,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sylx != null" >
+        sylx = #{record.sylx,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cpsn != null" >
+        cpsn = #{record.cpsn,jdbcType=VARCHAR},
+      </if>
+      <if test="record.jd != null" >
+        jd = #{record.jd,jdbcType=VARCHAR},
+      </if>
+      <if test="record.wd != null" >
+        wd = #{record.wd,jdbcType=VARCHAR},
+      </if>
+      <if test="record.zt != null" >
+        zt = #{record.zt,jdbcType=VARCHAR},
+      </if>
+      <if test="record.xh != null" >
+        xh = #{record.xh,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update V_E_Info
+    set Id = #{record.id,jdbcType=INTEGER},
+    txsn = #{record.txsn,jdbcType=VARCHAR},
+    zjcd = #{record.zjcd,jdbcType=VARCHAR},
+    bjzt = #{record.bjzt,jdbcType=VARCHAR},
+    wdzt = #{record.wdzt,jdbcType=VARCHAR},
+    zcjl = #{record.zcjl,jdbcType=VARCHAR},
+    jqwd = #{record.jqwd,jdbcType=VARCHAR},
+    sl = #{record.sl,jdbcType=VARCHAR},
+    syl = #{record.syl,jdbcType=VARCHAR},
+    xjcjl = #{record.xjcjl,jdbcType=VARCHAR},
+    ph = #{record.ph,jdbcType=VARCHAR},
+    tbs = #{record.tbs,jdbcType=VARCHAR},
+    ydzfs = #{record.ydzfs,jdbcType=VARCHAR},
+    sks = #{record.sks,jdbcType=VARCHAR},
+    sylx = #{record.sylx,jdbcType=VARCHAR},
+    cpsn = #{record.cpsn,jdbcType=VARCHAR},
+    jd = #{record.jd,jdbcType=VARCHAR},
+    wd = #{record.wd,jdbcType=VARCHAR},
+    zt = #{record.zt,jdbcType=VARCHAR},
+    xh = #{record.xh,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.haro.iot.weixin.core.pojo.VEInfo" >
+    update V_E_Info
+    <set >
+      <if test="txsn != null" >
+        txsn = #{txsn,jdbcType=VARCHAR},
+      </if>
+      <if test="zjcd != null" >
+        zjcd = #{zjcd,jdbcType=VARCHAR},
+      </if>
+      <if test="bjzt != null" >
+        bjzt = #{bjzt,jdbcType=VARCHAR},
+      </if>
+      <if test="wdzt != null" >
+        wdzt = #{wdzt,jdbcType=VARCHAR},
+      </if>
+      <if test="zcjl != null" >
+        zcjl = #{zcjl,jdbcType=VARCHAR},
+      </if>
+      <if test="jqwd != null" >
+        jqwd = #{jqwd,jdbcType=VARCHAR},
+      </if>
+      <if test="sl != null" >
+        sl = #{sl,jdbcType=VARCHAR},
+      </if>
+      <if test="syl != null" >
+        syl = #{syl,jdbcType=VARCHAR},
+      </if>
+      <if test="xjcjl != null" >
+        xjcjl = #{xjcjl,jdbcType=VARCHAR},
+      </if>
+      <if test="ph != null" >
+        ph = #{ph,jdbcType=VARCHAR},
+      </if>
+      <if test="tbs != null" >
+        tbs = #{tbs,jdbcType=VARCHAR},
+      </if>
+      <if test="ydzfs != null" >
+        ydzfs = #{ydzfs,jdbcType=VARCHAR},
+      </if>
+      <if test="sks != null" >
+        sks = #{sks,jdbcType=VARCHAR},
+      </if>
+      <if test="sylx != null" >
+        sylx = #{sylx,jdbcType=VARCHAR},
+      </if>
+      <if test="cpsn != null" >
+        cpsn = #{cpsn,jdbcType=VARCHAR},
+      </if>
+      <if test="jd != null" >
+        jd = #{jd,jdbcType=VARCHAR},
+      </if>
+      <if test="wd != null" >
+        wd = #{wd,jdbcType=VARCHAR},
+      </if>
+      <if test="zt != null" >
+        zt = #{zt,jdbcType=VARCHAR},
+      </if>
+      <if test="xh != null" >
+        xh = #{xh,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where Id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.haro.iot.weixin.core.pojo.VEInfo" >
+    update V_E_Info
+    set txsn = #{txsn,jdbcType=VARCHAR},
+      zjcd = #{zjcd,jdbcType=VARCHAR},
+      bjzt = #{bjzt,jdbcType=VARCHAR},
+      wdzt = #{wdzt,jdbcType=VARCHAR},
+      zcjl = #{zcjl,jdbcType=VARCHAR},
+      jqwd = #{jqwd,jdbcType=VARCHAR},
+      sl = #{sl,jdbcType=VARCHAR},
+      syl = #{syl,jdbcType=VARCHAR},
+      xjcjl = #{xjcjl,jdbcType=VARCHAR},
+      ph = #{ph,jdbcType=VARCHAR},
+      tbs = #{tbs,jdbcType=VARCHAR},
+      ydzfs = #{ydzfs,jdbcType=VARCHAR},
+      sks = #{sks,jdbcType=VARCHAR},
+      sylx = #{sylx,jdbcType=VARCHAR},
+      cpsn = #{cpsn,jdbcType=VARCHAR},
+      jd = #{jd,jdbcType=VARCHAR},
+      wd = #{wd,jdbcType=VARCHAR},
+      zt = #{zt,jdbcType=VARCHAR},
+      xh = #{xh,jdbcType=VARCHAR}
+    where Id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectByCpsn" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select * from V_E_Info where cpsn = #{cpsn,jdbcType=VARCHAR};
+  </select>
+</mapper>

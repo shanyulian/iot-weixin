@@ -22,7 +22,7 @@ public class SendWeiXinServiceImpl implements SendWeiXinService {
     }
 
     @Override
-    public WeiXinInfo selectWeiXinByID(String id) {
+    public WeiXinInfo selectWeiXinByID(Long id) {
         return sendWeiXinInfoMapper.selectWeiXinByID(id);
     }
 

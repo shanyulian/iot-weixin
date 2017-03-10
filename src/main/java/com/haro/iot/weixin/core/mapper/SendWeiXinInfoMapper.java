@@ -27,5 +27,5 @@ public interface SendWeiXinInfoMapper {
      * @param id
      * @return
      */
-    WeiXinInfo selectWeiXinByID(String id);
+    WeiXinInfo selectWeiXinByID(Long id);
 }

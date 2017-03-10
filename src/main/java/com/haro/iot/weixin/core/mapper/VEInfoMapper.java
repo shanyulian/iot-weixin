@@ -29,4 +29,6 @@ public interface VEInfoMapper {
     int updateByPrimaryKey(VEInfo record);
 
     VEInfo selectByCpsn(String cpsn);
+
+    VEInfo selectByDTU(String txsn);
 }

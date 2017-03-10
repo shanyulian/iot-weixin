@@ -27,5 +27,5 @@ public interface SendWeiXinService {
      * @param id
      * @return
      */
-    WeiXinInfo selectWeiXinByID(String id);
+    WeiXinInfo selectWeiXinByID(Long id);
 }

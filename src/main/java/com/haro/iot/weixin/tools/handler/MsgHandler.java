@@ -82,7 +82,7 @@ public class MsgHandler extends AbstractHandler {
                         }else {
                             sb.append("状态："+veInfo.getZt()+"\n");
                         }
-                        sb.append("最后出巾时间："+parse+"\n");
+                        sb.append("信息发送时间："+parse+"\n");
 
                         DeviceInfo deviceInfo = sendWeiXinService.selectDeviceByCpsn(cpsn);
                         if(deviceInfo!=null){
@@ -99,11 +99,11 @@ public class MsgHandler extends AbstractHandler {
                         return new TextBuilder().build(cont, wxMessage, weixinService);
                     }
                 }else{
-                    String content = "语音识别结果："+wxMessage.getRecognition();
+                    String content = "未解析到相应命令，语音识别结果："+wxMessage.getRecognition();
                     return new TextBuilder().build(content, wxMessage, weixinService);
                 }
             }else {
-                String content = "语音识别结果："+wxMessage.getRecognition();
+                String content = "未解析到相应命令，语音识别结果："+wxMessage.getRecognition();
                 return new TextBuilder().build(content, wxMessage, weixinService);
             }
         }
@@ -131,7 +131,7 @@ public class MsgHandler extends AbstractHandler {
                         }else {
                             sb.append("状态："+veInfo.getZt()+"\n");
                         }
-                        sb.append("最后出巾时间："+parse+"\n");
+                        sb.append("信息发送时间："+parse+"\n");
 
                         DeviceInfo deviceInfo = sendWeiXinService.selectDeviceByCpsn(cpsn);
                         if(deviceInfo!=null){
@@ -148,8 +148,7 @@ public class MsgHandler extends AbstractHandler {
                         return new TextBuilder().build(cont, wxMessage, weixinService);
                     }
                 }
-            }
-        }else if(wxMessage.getContent().length() ==10){
+            }else if(wxMessage.getContent().length() ==10){
                 if("A".equals(StringUtil.subStrNotEncode(wxMessage.getContent(),1))){
                     //AYSH10200A 字符格式
                     //截取4~9的字符串 为代理商的ID号
@@ -176,13 +175,14 @@ public class MsgHandler extends AbstractHandler {
                         }
 
                     }
-                    String content = "没有解析到相应命令。请您重新输入，如有疑问，联系上海克拉方今！";
+                    String content = "没有解析到相应命令。直接手写或者语音输入8位机器SN编号，查询对应机器信息！如有疑问，联系上海克拉方今总部！";
                     return new TextBuilder().build(content, wxMessage, weixinService);
                 }
 
-        }else{
-            String content = "没有解析到相应命令。直接输入机器SN编号查询对应机器信息！";
-            return new TextBuilder().build(content, wxMessage, weixinService);
+            }else{
+                String content = "没有解析到相应命令。直接手写或者语音输入8位机器SN编号，查询对应机器信息！如有疑问，联系上海克拉方今总部！";
+                return new TextBuilder().build(content, wxMessage, weixinService);
+            }
         }
 
         //当用户输入关键词如“你好”，“客服”等，并且有客服在线时，把消息转发给在线客服
@@ -194,7 +194,7 @@ public class MsgHandler extends AbstractHandler {
         }
 
         //TODO 组装回复消息
-        String content = "没有解析到相应命令。直接输入机器SN编号查询对应机器信息！";
+        String content = "没有解析到相应命令。直接手写或者语音输入8位机器SN编号，查询对应机器信息！如有疑问，联系上海克拉方今总部！";
         return new TextBuilder().build(content, wxMessage, weixinService);
 
     }

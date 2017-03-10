@@ -9,6 +9,9 @@ public class DeviceInfo {
 
     private  String spec;
 
+    private Long dID;
+
+
 
     public Integer getcID() {
         return cID;
@@ -24,5 +27,13 @@ public class DeviceInfo {
 
     public void setSpec(String spec) {
         this.spec = spec;
+    }
+
+    public Long getdID() {
+        return dID;
+    }
+
+    public void setdID(Long dID) {
+        this.dID = dID;
     }
 }

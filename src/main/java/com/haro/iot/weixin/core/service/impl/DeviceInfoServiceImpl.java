@@ -23,4 +23,9 @@ public class DeviceInfoServiceImpl implements DeviceInfoService{
     public VEInfo selectByCpsn(String cpsn) {
         return veInfoMapper.selectByCpsn(cpsn);
     }
+
+    @Override
+    public VEInfo selectByDtu(String dtu) {
+        return veInfoMapper.selectByDTU(dtu);
+    }
 }

@@ -17,4 +17,9 @@ public interface DeviceInfoService {
      *CPSN 查询
      */
     VEInfo selectByCpsn(String cpsn);
+
+    /**
+     *
+     */
+    VEInfo selectByDtu(String dtu);
 }

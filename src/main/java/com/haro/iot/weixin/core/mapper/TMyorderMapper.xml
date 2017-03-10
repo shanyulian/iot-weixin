@@ -1,0 +1,342 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.haro.iot.weixin.core.mapper.TMyorderMapper" >
+  <resultMap id="BaseResultMap" type="com.haro.iot.weixin.core.pojo.TMyorder" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="dtuname" property="dtuname" jdbcType="VARCHAR" />
+    <result column="openid" property="openid" jdbcType="VARCHAR" />
+    <result column="subscribe" property="subscribe" jdbcType="VARCHAR" />
+    <result column="totalfee" property="totalfee" jdbcType="INTEGER" />
+    <result column="outtradeno" property="outtradeno" jdbcType="VARCHAR" />
+    <result column="timeend" property="timeend" jdbcType="VARCHAR" />
+    <result column="attach" property="attach" jdbcType="VARCHAR" />
+    <result column="stats" property="stats" jdbcType="INTEGER" />
+    <result column="number" property="number" jdbcType="INTEGER" />
+    <result column="status" property="status" jdbcType="INTEGER" />
+    <result column="timeday" property="timeday" jdbcType="VARCHAR" />
+    <result column="paytype" property="paytype" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, dtuname, openid, subscribe, totalfee, outtradeno, timeend, attach, stats, number, 
+    status, timeday, paytype
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.haro.iot.weixin.core.pojo.TMyorderExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from t_myorder
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_myorder
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_myorder
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.haro.iot.weixin.core.pojo.TMyorderExample" >
+    delete from t_myorder
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.haro.iot.weixin.core.pojo.TMyorder" >
+    insert into t_myorder (id, dtuname, openid, 
+      subscribe, totalfee, outtradeno, 
+      timeend, attach, stats, 
+      number, status, timeday, 
+      paytype)
+    values (#{id,jdbcType=INTEGER}, #{dtuname,jdbcType=VARCHAR}, #{openid,jdbcType=VARCHAR}, 
+      #{subscribe,jdbcType=VARCHAR}, #{totalfee,jdbcType=INTEGER}, #{outtradeno,jdbcType=VARCHAR}, 
+      #{timeend,jdbcType=VARCHAR}, #{attach,jdbcType=VARCHAR}, #{stats,jdbcType=INTEGER}, 
+      #{number,jdbcType=INTEGER}, #{status,jdbcType=INTEGER}, #{timeday,jdbcType=VARCHAR}, 
+      #{paytype,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.haro.iot.weixin.core.pojo.TMyorder" >
+    insert into t_myorder
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="dtuname != null" >
+        dtuname,
+      </if>
+      <if test="openid != null" >
+        openid,
+      </if>
+      <if test="subscribe != null" >
+        subscribe,
+      </if>
+      <if test="totalfee != null" >
+        totalfee,
+      </if>
+      <if test="outtradeno != null" >
+        outtradeno,
+      </if>
+      <if test="timeend != null" >
+        timeend,
+      </if>
+      <if test="attach != null" >
+        attach,
+      </if>
+      <if test="stats != null" >
+        stats,
+      </if>
+      <if test="number != null" >
+        number,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="timeday != null" >
+        timeday,
+      </if>
+      <if test="paytype != null" >
+        paytype,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="dtuname != null" >
+        #{dtuname,jdbcType=VARCHAR},
+      </if>
+      <if test="openid != null" >
+        #{openid,jdbcType=VARCHAR},
+      </if>
+      <if test="subscribe != null" >
+        #{subscribe,jdbcType=VARCHAR},
+      </if>
+      <if test="totalfee != null" >
+        #{totalfee,jdbcType=INTEGER},
+      </if>
+      <if test="outtradeno != null" >
+        #{outtradeno,jdbcType=VARCHAR},
+      </if>
+      <if test="timeend != null" >
+        #{timeend,jdbcType=VARCHAR},
+      </if>
+      <if test="attach != null" >
+        #{attach,jdbcType=VARCHAR},
+      </if>
+      <if test="stats != null" >
+        #{stats,jdbcType=INTEGER},
+      </if>
+      <if test="number != null" >
+        #{number,jdbcType=INTEGER},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="timeday != null" >
+        #{timeday,jdbcType=VARCHAR},
+      </if>
+      <if test="paytype != null" >
+        #{paytype,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.haro.iot.weixin.core.pojo.TMyorderExample" resultType="java.lang.Integer" >
+    select count(*) from t_myorder
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update t_myorder
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.dtuname != null" >
+        dtuname = #{record.dtuname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.openid != null" >
+        openid = #{record.openid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.subscribe != null" >
+        subscribe = #{record.subscribe,jdbcType=VARCHAR},
+      </if>
+      <if test="record.totalfee != null" >
+        totalfee = #{record.totalfee,jdbcType=INTEGER},
+      </if>
+      <if test="record.outtradeno != null" >
+        outtradeno = #{record.outtradeno,jdbcType=VARCHAR},
+      </if>
+      <if test="record.timeend != null" >
+        timeend = #{record.timeend,jdbcType=VARCHAR},
+      </if>
+      <if test="record.attach != null" >
+        attach = #{record.attach,jdbcType=VARCHAR},
+      </if>
+      <if test="record.stats != null" >
+        stats = #{record.stats,jdbcType=INTEGER},
+      </if>
+      <if test="record.number != null" >
+        number = #{record.number,jdbcType=INTEGER},
+      </if>
+      <if test="record.status != null" >
+        status = #{record.status,jdbcType=INTEGER},
+      </if>
+      <if test="record.timeday != null" >
+        timeday = #{record.timeday,jdbcType=VARCHAR},
+      </if>
+      <if test="record.paytype != null" >
+        paytype = #{record.paytype,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update t_myorder
+    set id = #{record.id,jdbcType=INTEGER},
+      dtuname = #{record.dtuname,jdbcType=VARCHAR},
+      openid = #{record.openid,jdbcType=VARCHAR},
+      subscribe = #{record.subscribe,jdbcType=VARCHAR},
+      totalfee = #{record.totalfee,jdbcType=INTEGER},
+      outtradeno = #{record.outtradeno,jdbcType=VARCHAR},
+      timeend = #{record.timeend,jdbcType=VARCHAR},
+      attach = #{record.attach,jdbcType=VARCHAR},
+      stats = #{record.stats,jdbcType=INTEGER},
+      number = #{record.number,jdbcType=INTEGER},
+      status = #{record.status,jdbcType=INTEGER},
+      timeday = #{record.timeday,jdbcType=VARCHAR},
+      paytype = #{record.paytype,jdbcType=INTEGER}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.haro.iot.weixin.core.pojo.TMyorder" >
+    update t_myorder
+    <set >
+      <if test="dtuname != null" >
+        dtuname = #{dtuname,jdbcType=VARCHAR},
+      </if>
+      <if test="openid != null" >
+        openid = #{openid,jdbcType=VARCHAR},
+      </if>
+      <if test="subscribe != null" >
+        subscribe = #{subscribe,jdbcType=VARCHAR},
+      </if>
+      <if test="totalfee != null" >
+        totalfee = #{totalfee,jdbcType=INTEGER},
+      </if>
+      <if test="outtradeno != null" >
+        outtradeno = #{outtradeno,jdbcType=VARCHAR},
+      </if>
+      <if test="timeend != null" >
+        timeend = #{timeend,jdbcType=VARCHAR},
+      </if>
+      <if test="attach != null" >
+        attach = #{attach,jdbcType=VARCHAR},
+      </if>
+      <if test="stats != null" >
+        stats = #{stats,jdbcType=INTEGER},
+      </if>
+      <if test="number != null" >
+        number = #{number,jdbcType=INTEGER},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="timeday != null" >
+        timeday = #{timeday,jdbcType=VARCHAR},
+      </if>
+      <if test="paytype != null" >
+        paytype = #{paytype,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.haro.iot.weixin.core.pojo.TMyorder" >
+    update t_myorder
+    set dtuname = #{dtuname,jdbcType=VARCHAR},
+      openid = #{openid,jdbcType=VARCHAR},
+      subscribe = #{subscribe,jdbcType=VARCHAR},
+      totalfee = #{totalfee,jdbcType=INTEGER},
+      outtradeno = #{outtradeno,jdbcType=VARCHAR},
+      timeend = #{timeend,jdbcType=VARCHAR},
+      attach = #{attach,jdbcType=VARCHAR},
+      stats = #{stats,jdbcType=INTEGER},
+      number = #{number,jdbcType=INTEGER},
+      status = #{status,jdbcType=INTEGER},
+      timeday = #{timeday,jdbcType=VARCHAR},
+      paytype = #{paytype,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+  <select id="selectOrderStatus" resultType="java.lang.Integer" parameterType="java.lang.String" >
+    select status from t_myorder where outtradeno = #{outtradeno,jdbcType=VARCHAR};
+  </select>
+</mapper>

@@ -446,4 +446,8 @@
   <select id="selectByCpsn" resultMap="BaseResultMap" parameterType="java.lang.String" >
     select * from V_E_Info where cpsn = #{cpsn,jdbcType=VARCHAR};
   </select>
+
+  <select id="selectByDTU" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select * from V_E_Info where txsn = #{txsn,jdbcType=VARCHAR};
+  </select>
 </mapper>

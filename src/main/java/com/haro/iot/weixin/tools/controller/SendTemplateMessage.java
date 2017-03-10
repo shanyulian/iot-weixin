@@ -46,24 +46,42 @@ public class SendTemplateMessage {
         if( info.length()!=2) {
             return "info error";
         }
+        /**
+         * (1)查询验证输入的用户和密码，后期可通过账号分配权限
+         */
         if("klfj".equals(user) && "klfj".equals(password)){
             if(!sendTimeService.sendStatus(cpsn)){
                 return "";
             }
+            /**
+             * (2)通过SN号查询机器信息
+             */
             DeviceInfo deviceInfo = sendWeiXinService.selectDeviceByCpsn(cpsn);
+
             if(deviceInfo==null){
                 return "no cpsn";
             }
+            /**
+             * (3)获取机器种类
+             */
             String deviceType = deviceInfo.getSpec();//机器种类
-
-            CustomerInfo customerInfo = sendWeiXinService.selectCustomerByID(deviceInfo.getcID());
-            if(customerInfo==null){
-                return "no customer";
+            /**
+             * (4)获取客户ID，异常可能客户为null，或者为0
+             */
+            String address = "";//机器地址
+            if(deviceInfo.getcID()!=null){
+                CustomerInfo customerInfo = sendWeiXinService.selectCustomerByID(deviceInfo.getcID());
+                if(customerInfo!=null){
+                    address= customerInfo.getName();//机器地址
+                }
             }
-            String address = customerInfo.getName();//机器地址
-            String code = StringUtil.subStrNotEncode(customerInfo.getCode(),5);
-            System.out.print("addreess:"+address + "code:"+code);
-            WeiXinInfo weiXinInfo = sendWeiXinService.selectWeiXinByID(code);
+
+
+           // String address =
+//            String code = StringUtil.subStrNotEncode(customerInfo.getCode(),5);
+//            System.out.print("addreess:"+address + "code:"+code);
+//            WeiXinInfo weiXinInfo = sendWeiXinService.selectWeiXinByID(code);
+            WeiXinInfo weiXinInfo = sendWeiXinService.selectWeiXinByID(deviceInfo.getdID());
             if(weiXinInfo == null){
                 return  "no weixin";
             }
@@ -91,7 +109,7 @@ public class SendTemplateMessage {
             }else if("04".equals(info)){
                 sendInfo ="剩余不足";
             }else if("05".equals(info)){
-                sendInfo ="择巾异常";
+                sendInfo ="折巾异常";
             }else if("06".equals(info)){
                 sendInfo ="加热管故障";
             }else if("07".equals(info)){
@@ -99,7 +117,7 @@ public class SendTemplateMessage {
             }else if("08".equals(info)){
                 sendInfo ="DTU报警";
             }else if("09".equals(info)){
-                sendInfo ="已经上锁";
+                sendInfo ="暂停使用";
             }
             templateMessage.getData().add(new WxMpTemplateData("keyword3", sendInfo, "#000000"));
             templateMessage.getData().add(new WxMpTemplateData("keyword4", address, "#000000"));
@@ -112,12 +130,12 @@ public class SendTemplateMessage {
             try {
                 wxService.getTemplateMsgService().sendTemplateMsg(templateMessage);
                 System.out.print("openid :"+ openid +",代理商："+agentName+",发送信息："+sendInfo+",address: "+address);
-                if("10300".equals(code)) {
-                    templateMessage.setToUser("oMooxwH5-5-ovgUetMsMKnQ6Cc28");//发送的陆总OpenID
-                    wxService.getTemplateMsgService().sendTemplateMsg(templateMessage);
-                    templateMessage.setToUser("oMooxwO9SdQaSxHDMtmhMXjHhpOg");//发送的单OpenID
-                    wxService.getTemplateMsgService().sendTemplateMsg(templateMessage);
-                }
+//                if("10300".equals(code)) {
+//                    templateMessage.setToUser("oMooxwH5-5-ovgUetMsMKnQ6Cc28");//发送的陆总OpenID
+//                    wxService.getTemplateMsgService().sendTemplateMsg(templateMessage);
+//                    //templateMessage.setToUser("oMooxwO9SdQaSxHDMtmhMXjHhpOg");//发送的单OpenID
+//                   // wxService.getTemplateMsgService().sendTemplateMsg(templateMessage);
+//                }
             } catch (WxErrorException e) {
                 e.printStackTrace();
             }

@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSON;
 
 import com.haro.iot.weixin.core.pojo.*;
 import com.haro.iot.weixin.core.service.*;
+import com.haro.iot.weixin.tools.service.WeixinService;
 import org.apache.log4j.Logger;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -30,9 +31,18 @@ public class MyBatisTest {
 //	private DeviceInfoService deviceInfoService;
 //	@Autowired
 //	private SendWeiXinService sendWeiXinService;
-    @Autowired
-	private WeiXinRegisterService weiXinRegisterService;
-    //private SendTimeService sendTimeService;
+//    @Autowired
+//	private WeiXinRegisterService weiXinRegisterService;
+//	@Autowired
+//    private SendTimeService sendTimeService;
+	@Autowired
+	private WeixinService wxService;
+	@Autowired
+	private SendWeiXinService sendWeiXinService;
+	@Autowired
+	private SendTimeService sendTimeService;//时间间隔查询
+	@Autowired
+	private OrderService orderService;
 	   //  @Test
 	     public void testAddUser(){
 //         TUser user = new TUser();
@@ -78,13 +88,63 @@ public class MyBatisTest {
 //			// jedis.set("name", "单雨连");
 //			 String name = jedis.get("name");
 //			 System.out.println(name);
-			 TWeixinRegister tWeixinRegister = weiXinRegisterService.selectByAgent("10200");
-			 LOGGER.info("现实的信息："+JSON.toJSON(tWeixinRegister));
+			 //TWeixinRegister tWeixinRegister = weiXinRegisterService.selectByAgent("10200");
+			// LOGGER.info("现实的信息："+JSON.toJSON(tWeixinRegister));
+			 /**
+			  * (2)通过SN号查询机器信息
+			  */
+			 DeviceInfo deviceInfo = sendWeiXinService.selectDeviceByCpsn("20170004");
 
+			 if(deviceInfo==null){
+				 return;
+			 }
+			 /**
+			  * (3)获取机器种类
+			  */
+			 String deviceType = deviceInfo.getSpec();//机器种类
+			 LOGGER.info("获取机器种类========："+deviceType);
+			 /**
+			  * (4)获取客户ID，异常可能客户为null，或者为0
+			  */
+			 String address = "";//机器地址
+			 if(deviceInfo.getcID()!=null){
+				 CustomerInfo customerInfo = sendWeiXinService.selectCustomerByID(deviceInfo.getcID());
+				 if(customerInfo!=null){
+					 address= customerInfo.getName();//机器地址
+				 }
+			 }
+			 LOGGER.info("获取机器地址========："+address);
+			 LOGGER.info("获ID========："+deviceInfo.getdID());
+			 LOGGER.info("现实的信息："+JSON.toJSON(deviceInfo));
+
+			 // String address =
+//            String code = StringUtil.subStrNotEncode(customerInfo.getCode(),5);
+//            System.out.print("addreess:"+address + "code:"+code);
+//            WeiXinInfo weiXinInfo = sendWeiXinService.selectWeiXinByID(code);
+			 WeiXinInfo weiXinInfo = sendWeiXinService.selectWeiXinByID(deviceInfo.getdID());
+			 if(weiXinInfo == null){
+				 LOGGER.info("6KKKKKKKKKKKKKKKKKKKKKKKKKKK");
+				 return  ;
+			 }
+			 String openid ;
+			 String agentName = weiXinInfo.getAgentName();
+			 if(weiXinInfo.getOpenid()!= null){
+				 openid = weiXinInfo.getOpenid();
+			 }else {
+				 openid = "oMooxwO9SdQaSxHDMtmhMXjHhpOg";
+			 }
+			 LOGGER.info("openid========："+openid);
+			 LOGGER.info("agentName========："+agentName);
+			 return  ;
 		 }
         @Test
 		 public  void sentTime(){
-//             SendTime se = sendTimeService.selectTimeByCpsb("10110600");
+			String f = "E20170309081139";
+			int s = orderService.selectStatusByOuttradeno(f);
+
+			System.out.println("=======================查询订单结果========"+s+"  结果");
+
+//             SendTime se = sendTimeService.selectTimeByCpsb("20160006");
 //             LOGGER.info("deviceInfo的信息："+JSON.toJSON(se));
 //            Timestamp now = new Timestamp(System.currentTimeMillis());//获取系统当前时间
 //            long i = (now.getTime()-se.getTimestamp().getTime())/(1000*60);
@@ -94,7 +154,7 @@ public class MyBatisTest {
 //            sendTime.setCpsn("10112233");
 //            sendTime.setTimestamp(now);
 //            sendTimeService.insert(sendTime);
-//            if(!sendTimeService.sendStatus("10110111")){
+//            if(!sendTimeService.sendStatus("20160006")){
 //                System.out.println("=======================不可以发送========");
 //            }else{
 //                System.out.println("=======================可以发送========");
